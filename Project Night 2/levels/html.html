@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>night2</title>
+	<link rel="stylesheet" href="css.css">
+	<script src="../Resources/Scene/lab1/objects.js"></script><!-- Collider change this -->
+	<script>		
+		var selfposy = 10; //Starting x position
+		var selfposx = 5; //Starting y position
+		var orientation = "Up"; //Starting orientation
+	</script>
+</head>
+<body onload="load(); popup()">
+	<div id="Chaptertext">Chapter 2: <span class="Chaptertext">The Labs</span></div> <!-- Can be left blank -->
+	<div id="Black"></div>
+	<div>
+		<img  id="bg" class="bg" src="../Resources/Scene/lab1/map.png" alt=""> <!-- Map image -->
+	</div>
+	<div id="obg" class="obg">
+		<img class="obgimg" src="../Resources/Scene/lab1/overlay.png"></div> <!-- Overlay image -->
+		<div class="playerbox">
+			<img id="playerimg" alt="" class="player">
+		</div>
+		<div id="dialoguebox">
+			<div id="dialoguemessage"></div>
+			<img class="dialoguebox" src="../Resources/Dialoguebox/Large.png" alt="">
+		</div>
+		<div id="smalldialoguebox">
+			<div id="smalldialoguemessage"></div>
+			<img class="smalldialoguebox" src="../Resources/Dialoguebox/Small.png" alt="">
+		</div>
+		<script src="../Resources/Engine/night2.js"></script>
+	</body>
+	</html>

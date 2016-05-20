@@ -1,0 +1,149 @@
+*{
+	padding: 0;
+	margin: 0;
+	display: block;
+}
+#dialoguebox{
+	position: absolute;
+	top:101vh;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    z-index: 6;
+}
+div#dialoguemessage{
+	position: absolute;
+	top:2vh;
+	left:3vw;
+	color:#222;
+	font-size:3vw;
+	font-family: Calibri;
+	z-index: 7;
+	width: 80vw;
+}
+img.dialoguebox{
+	position: absolute;
+	width:99vw;
+	left:0.5vw;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    z-index: 6;
+}
+body{
+	overflow: hidden;
+	background-color: black;
+}
+.bg{
+	position: absolute;
+	left:45vw;
+	top:20vw;
+	height: auto;
+	width:50vw;
+	border-color: black;
+	border:solid;
+	  -webkit-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+}
+.obg{
+	position: fixed;
+	left:17vw;
+	top:26vw;
+	height: auto;
+	width:50vw;
+	border-color: black;
+	border:solid;
+	  -webkit-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+    z-index: 2;
+}
+.obgimg{
+	height:inherit;
+	width:inherit;
+}
+.player{
+	position: fixed;
+	left: 45vw;
+	top:48vh;
+	height: 20vh;
+	width:auto;
+		  -webkit-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+    z-index:2;
+}
+.playerbox{
+	position: fixed;
+	left: 45vw;
+	top:20vw;
+	height: 10vw;
+	width:10vw;
+	border-color: black;
+	border:hidden;
+}
+#Black{
+	background-color: black;
+	position: fixed;
+	left:0;
+	top:0;
+	height: 100vh;
+	width: 100vw;
+	z-index: 4;
+}
+span.Chaptertext{
+	font-size: 5vw;
+	font-weight: bold;
+	font-family: Century Gothic;
+}
+#Chaptertext{
+	position: fixed;
+	left: 3vw;
+	width: 20vw;
+	top:66vh;
+	color:black;
+	font-size: 2vw;
+	z-index: 5;
+	font-family: Century Gothic;
+		  -webkit-transition: all 1000ms ease-in-out;
+    -moz-transition: all 1000ms ease-in-out;
+    -o-transition: all 1000ms ease-in-out;
+    transition: all 1000ms ease-in-out;;
+}
+#smalldialoguebox{
+	position: fixed;
+	top:48vh;
+	left:55vw;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    z-index: 6;
+    opacity: 0;
+}
+div#smalldialoguemessage{
+	position: absolute;
+	top:2vh;
+	left:1vw;
+	color:#BBB;
+	font-size:2.5vw;
+	font-family: Calibri;
+	z-index: 7;
+	width: 180px;
+}
+img.smalldialoguebox{
+	position: absolute;
+	width:200px;
+	height:200px;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    z-index: 6;
+}
