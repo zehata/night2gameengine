@@ -1,8 +1,8 @@
 *{
 	padding: 0;
 	margin: 0;
-	display: block;
 }
+@font-face { font-family: Century Gothic; src: url('../Fonts/centurygothic.ttf'); } 
 #dialoguebox{
 	position: absolute;
 	top:101vh;
@@ -110,7 +110,7 @@ span.Chaptertext{
 	color:black;
 	font-size: 2vw;
 	z-index: 5;
-	font-family: Century Gothic;
+	font-family: Century Gothic, Helvetica, Arial;
 		  -webkit-transition: all 1000ms ease-in-out;
     -moz-transition: all 1000ms ease-in-out;
     -o-transition: all 1000ms ease-in-out;
@@ -119,7 +119,7 @@ span.Chaptertext{
 #smalldialoguebox{
 	position: fixed;
 	top:48vh;
-	left:55vw;
+	left:58vw;
 	  -webkit-transition: all 500ms ease-in-out;
     -moz-transition: all 500ms ease-in-out;
     -o-transition: all 500ms ease-in-out;
@@ -146,4 +146,63 @@ img.smalldialoguebox{
     -o-transition: all 500ms ease-in-out;
     transition: all 500ms ease-in-out;
     z-index: 6;
+}
+#questionbox{
+	position: absolute;
+	top:101vh;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    z-index: 6;
+}
+div#questionmessage{
+	position: absolute;
+	top:2vh;
+	left:3vw;
+	color:#222;
+	font-size:3vw;
+	font-family: Calibri;
+	z-index: 7;
+	width: 80vw;
+}
+img.questionbox{
+	position: absolute;
+	width:99vw;
+	left:0.5vw;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    z-index: 6;
+}
+#option1{
+	position: fixed;
+	top:101vh;
+	left:32vw;
+	color:#222;
+	font-size:3vw;
+	font-family: Calibri;
+	z-index: 7;
+	width:10vw;
+	height:10vh;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+}
+#option2{
+	position: fixed;
+	top:101vh;
+	left:72vw;
+	color:#222;
+	font-size:3vw;
+	font-family: Calibri;
+	z-index: 7;
+	width:10vw;
+	height:10vh;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
 }

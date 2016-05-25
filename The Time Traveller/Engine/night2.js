@@ -1,3 +1,7 @@
+var questionbox = document.getElementById('questionbox');
+var questionimg = document.getElementById('questionimg');
+var questionselection = 1;
+var movement = "running";
 var messagetimeout = 0;
 var leftcollide = ""
 var rightcollide = ""
@@ -9,29 +13,29 @@ var rightinterval = function (){};
 var upinterval = function (){};
 var downinterval = function (){};
 var objecttype = "";
-var doorleftpic = "../Resources/Door/Doorleft.png";
-var doorrightpic = "../Resources/Door/Doorright.png";
-var doorleftopenpic = "../Resources/Door/Dooropenleft.png";
-var doorrightopenpic = "../Resources/Door/Dooropenright.png";
-var buttonpic = "../Resources/Button/Button.png";
-var backpic = "../Resources/Static/Back.png";
-var frontpic = "../Resources/Static/Front.png";
-var leftpic = "../Resources/Static/Left.png";
-var rightpic = "../Resources/Static/Right.png";
-var frontsprite = "../Resources/SpriteFront/spritefront.gif";
-var leftsprite = "../Resources/Spriteleft/spriteleft.gif";
-var rightsprite = "../Resources/Spriteright/spriteright.gif";
-var backsprite = "../Resources/Spriteback/spriteback.gif";
-var bgtop = 37-(selfposy-1)*5;
-var bgleft = 46-(selfposx-1)*5;
+var doorleftpic = "../../Door/Doorleft.png";
+var doorrightpic = "../../Door/Doorright.png";
+var doorleftopenpic = "../../Door/Dooropenleft.png";
+var doorrightopenpic = "../../Door/Dooropenright.png";
+var buttonpic = "../../Button/Button.png";
+var backpic = "../../Static/Back.png";
+var frontpic = "../../Static/Front.png";
+var leftpic = "../../Static/Left.png";
+var rightpic = "../../Static/Right.png";
+var frontsprite = "../../SpriteFront/spritefront.gif";
+var leftsprite = "../../Spriteleft/spriteleft.gif";
+var rightsprite = "../../Spriteright/spriteright.gif";
+var backsprite = "../../Spriteback/spriteback.gif";
+var bgtop = 58-(selfposy*6);
+var bgleft = 52-(selfposx*6);
 var input = document.getElementById('input');
 var bg = document.getElementById('bg');
 var obg = document.getElementById('obg');
 var player = document.getElementById('playerimg');
 var totalparse = 0;
 function load(){
-	bg.style.width = (5*JSON.parse(mapsize).x)+3+"vw";
-	obg.style.width = (5*JSON.parse(mapsize).x)+3+"vw";
+	bg.style.width = (JSON.parse(mapsize).x+1)*6+"vw";
+	obg.style.width = (JSON.parse(mapsize).x+1)*6+"vw";
 	for (var i in window){
 		if (i[0] == "o"){
 			switch(i[1]){
@@ -193,7 +197,6 @@ function move(dir){
 		if (IsJsonString(poscode) == true) {
 			var objectbyid =  document.getElementById(poscode);
 			var object = JSON.parse(eval(poscode));
-			console.log(object.goto)
 			if(object.goto != "null"){
 				window.location.href = object.goto;
 			}
@@ -250,8 +253,8 @@ function move(dir){
 			}
 		}
 	}
-	var bgtop = 37-(selfposy-1)*5;
-	var bgleft = 46-(selfposx-1)*5;
+	var bgtop = 58-(selfposy*6);
+	var bgleft = 52-(selfposx*6);
 	bg.style.top=bgtop+"vw";
 	bg.style.left=bgleft+"vw";
 	obg.style.top=bgtop+"vw";
@@ -261,8 +264,8 @@ function checkpos(){
 
 	if (selfposy<4){
 		selfposy=5;
-		var bgtop = 37-(selfposy-1)*5;
-		var bgleft = 46-(selfposx-1)*5;
+		var bgtop = 58-(selfposy*6);
+		var bgleft = 52-(selfposx*6);
 		bg.style.top=bgtop+"vw";
 		bg.style.left=bgleft+"vw";
 		obg.style.top=bgtop+"vw";
@@ -271,8 +274,8 @@ function checkpos(){
 	}
 	if (selfposy>10){
 		selfposy=10;
-		var bgtop = 37-(selfposy-1)*5;
-		var bgleft = 46-(selfposx-1)*5;
+		var bgtop = 58-(selfposy*6);
+		var bgleft = 52-(selfposx*6);
 		bg.style.top=bgtop+"vw";
 		bg.style.left=bgleft+"vw";
 		obg.style.top=bgtop+"vw";
@@ -282,8 +285,8 @@ function checkpos(){
 
 	if (selfposx==0){
 		selfposx=1;
-		var bgtop = 37-(selfposy-1)*5;
-		var bgleft = 46-(selfposx-1)*5;
+		var bgtop = 58-(selfposy*6);
+		var bgleft = 52-(selfposx*6);
 		bg.style.top=bgtop+"vw";
 		bg.style.left=bgleft+"vw";
 		obg.style.top=bgtop+"vw";
@@ -293,8 +296,8 @@ function checkpos(){
 
 	if (selfposx==11){
 		selfposx=10;
-		var bgtop = 37-(selfposy-1)*5;
-		var bgleft = 46-(selfposx-1)*5;
+		var bgtop = 58-(selfposy*6);
+		var bgleft = 52-(selfposx*6);
 		bg.style.top=bgtop+"vw";
 		bg.style.left=bgleft+"vw";
 		obg.style.top=bgtop+"vw";
@@ -344,8 +347,8 @@ function checkpos(){
 				case "Right":
 				selfposx -= 1;
 			}
-			var bgtop = 37-(selfposy-1)*5;
-			var bgleft = 46-(selfposx-1)*5;
+			var bgtop = 58-(selfposy*6);
+			var bgleft = 52-(selfposx*6);
 			bg.style.top=bgtop+"vw";
 			bg.style.left=bgleft+"vw";
 			obg.style.top=bgtop+"vw";
@@ -375,32 +378,69 @@ var lastEvent;
 var heldKeys = {};
 
 window.onkeydown = function(event) {
-	if (lastEvent && lastEvent.keyCode == event.keyCode) {
-		return;
-	}
-	lastEvent = event;
-	heldKeys[event.keyCode] = true;
-	switch (event.keyCode) {
-		case 65:
-		case 37:
-		leftinterval = setInterval(function(){move("Left"); checkpos();}, 250);
-		break;
-		case 87:
-		case 38:
-		upinterval = setInterval(function(){move("Up");  checkpos();}, 250);
-		break;
-		case 68:
-		case 39:
-		rightinterval = setInterval(function(){move("Right");  checkpos();}, 250);
-		break;
-		case 83:
-		case 40:
-		downinterval = setInterval(function(){move("Down"); checkpos();}, 250);
-		break;
-		
-		case 69:
-		move('e');
-	}
+	
+		if (lastEvent && lastEvent.keyCode == event.keyCode) {
+			return;
+		}
+		lastEvent = event;
+		heldKeys[event.keyCode] = true;
+		switch (event.keyCode) {
+			case 65:
+			case 37:
+			if (movement == "running"){
+				leftinterval = setInterval(function(){move("Left"); checkpos();}, 250);
+			}
+			else if (movement == "pause"){
+				if (questionselection == 1){
+					questionselection = 0;
+					questionimg.src = "../../Dialoguebox/Question2.png";
+				}
+				else{
+					questionselection = 1;
+					questionimg.src = "../../Dialoguebox/Question1.png";
+				}
+			}
+			break;
+			case 87:
+			case 38:
+			upinterval = setInterval(function(){move("Up");  checkpos();}, 250);
+			break;
+			case 68:
+			case 39:
+			if (movement == "running"){
+				rightinterval = setInterval(function(){move("Right");  checkpos();}, 250);
+			}
+			else if (movement == "pause"){
+				if (questionselection == 1){
+					questionselection = 0;
+					questionimg.src = "../../Dialoguebox/Question2.png";
+				}
+				else{
+					questionselection = 1;
+					questionimg.src = "../../Dialoguebox/Question1.png";
+				}
+			}
+			break;
+			case 83:
+			case 40:
+			downinterval = setInterval(function(){move("Down"); checkpos();}, 250);
+			break;
+			
+			case 69:
+			move('e');
+			if (movement == "pause"){
+				usersanswer = questionselection;
+				movement = "running";
+				questionbox.innerHTML = "";
+				questionbox.style.top = "101vh";
+				document.getElementById('option1').style.top = "101vh";
+				document.getElementById('option1').innerHTML = "";
+				document.getElementById('option2').style.top = "101vh";
+				document.getElementById('option2').innerHTML = "";
+				receiveanswer();
+			}
+		}
+	
 };
 
 document.onkeyup = function(e) {
@@ -424,13 +464,25 @@ document.onkeyup = function(e) {
 }
 
 function largemessage(message="..."){
-	messagetimeout = setTimeout(function(){
+		messagetimeout = setTimeout(function(){
 		var largedialoguebox = document.getElementById('dialoguebox');
 		largedialoguebox.style.top = "80vh";
 		var largemessagebox = document.getElementById('dialoguemessage');
 		largemessagebox.innerHTML = message;},500)
 }
+function question(question="...",option1="...",option2="..."){
+		usersanswer = 0;
+		movement = "pause";
+		questionbox.style.top = "75vh";
+		questionselection = 1;
+		var questionmessage = document.getElementById('questionmessage');
+		questionmessage.innerHTML = question;
+		document.getElementById('option1').style.top = "93vh";
+		document.getElementById('option1').innerHTML = option1;
+		document.getElementById('option2').style.top = "93vh";
+		document.getElementById('option2').innerHTML = option2;
 
+}
 function smallmessage(message="..."){
 		setTimeout(function(){
 		var smalldialoguebox = document.getElementById('smalldialoguebox');

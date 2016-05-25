@@ -1,4 +1,4 @@
-var mapsize = '{"x":"10"}';
+var mapsize = '{"x":10}';
 var o004008 = '{"type":"collideable", "goto":"null"}';
 var o005008 = '{"type":"collideable", "goto":"null"}';
 var o006008 = '{"type":"collideable", "goto":"null"}';
@@ -28,5 +28,9 @@ var o002010 = '{"type":"collideable", "goto":"null"}';
 var o003010 = '{"type":"collideable", "goto":"null"}';
 function popup (){
 	smallmessage("Press WASD to move around");
-	setTimeout(function(){smallmessage("Arrow keys works too")},5000)
+	setTimeout(function(){smallmessage("Arrow keys works too")},5000);
+	question("Yes?","Yes!","nope.");
+}
+function receiveanswer(){
+	smallmessage(usersanswer);
 }
