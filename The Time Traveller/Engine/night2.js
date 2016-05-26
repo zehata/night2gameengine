@@ -1,3 +1,4 @@
+var questionmessage = document.getElementById('questionmessage');
 var questionbox = document.getElementById('questionbox');
 var questionimg = document.getElementById('questionimg');
 var questionselection = 1;
@@ -54,10 +55,15 @@ function load(){
 				iniobjecty = i[4]*100 + i[5]*10 + i[6];
 				var objectheight = 0;
 				var noobject = 0;
+				var newobject = document.createElement("img");
 				switch(iniobject.type){
 					case "collideable":
 					objectheight = 0;
 					noobject = 1;
+					break;
+					case "object":
+					objectheight = 3;
+					newobject.src = iniobject.image;
 					break;
 					case "button":
 					newobject.src = buttonpic;
@@ -73,14 +79,13 @@ function load(){
 					break;
 				}
 				if (noobject == 0){
-					var newobject = document.createElement("img");
 					newobject.id = i;
 					newobject.className = "before";
 					newobject.style.position = "absolute";
-					newobject.style.left = (iniobjectx-1) * 5 + "vw";
-					newobject.style.bottom = (iniobjecty-7) + "vh";
+					newobject.style.left = 58-(iniobjectx*6)+"vw";
+					newobject.style.bottom = 52-(iniobjecty*6) + "vh";
 					newobject.style.height = objectheight + "vw";
-					newobject.style.width = "10vw";
+					newobject.style.width = "auto";
 					obg.appendChild(newobject)
 				}
 				else{
@@ -263,7 +268,7 @@ function move(dir){
 function checkpos(){
 
 	if (selfposy<4){
-		selfposy=5;
+		selfposy=4;
 		var bgtop = 58-(selfposy*6);
 		var bgleft = 52-(selfposx*6);
 		bg.style.top=bgtop+"vw";
@@ -272,8 +277,8 @@ function checkpos(){
 		obg.style.left=bgleft+"vw";
 		//collider
 	}
-	if (selfposy>10){
-		selfposy=10;
+	if (selfposy>(JSON.parse(mapsize).y)){
+		selfposy=(JSON.parse(mapsize).y);
 		var bgtop = 58-(selfposy*6);
 		var bgleft = 52-(selfposx*6);
 		bg.style.top=bgtop+"vw";
@@ -294,8 +299,8 @@ function checkpos(){
 		//collider
 	}
 
-	if (selfposx==11){
-		selfposx=10;
+	if (selfposx>(JSON.parse(mapsize).x)){
+		selfposx=(JSON.parse(mapsize).x);
 		var bgtop = 58-(selfposy*6);
 		var bgleft = 52-(selfposx*6);
 		bg.style.top=bgtop+"vw";
@@ -378,7 +383,7 @@ var lastEvent;
 var heldKeys = {};
 
 window.onkeydown = function(event) {
-	
+	if (movement == "running"){
 		if (lastEvent && lastEvent.keyCode == event.keyCode) {
 			return;
 		}
@@ -387,19 +392,7 @@ window.onkeydown = function(event) {
 		switch (event.keyCode) {
 			case 65:
 			case 37:
-			if (movement == "running"){
 				leftinterval = setInterval(function(){move("Left"); checkpos();}, 250);
-			}
-			else if (movement == "pause"){
-				if (questionselection == 1){
-					questionselection = 0;
-					questionimg.src = "../../Dialoguebox/Question2.png";
-				}
-				else{
-					questionselection = 1;
-					questionimg.src = "../../Dialoguebox/Question1.png";
-				}
-			}
 			break;
 			case 87:
 			case 38:
@@ -407,19 +400,7 @@ window.onkeydown = function(event) {
 			break;
 			case 68:
 			case 39:
-			if (movement == "running"){
 				rightinterval = setInterval(function(){move("Right");  checkpos();}, 250);
-			}
-			else if (movement == "pause"){
-				if (questionselection == 1){
-					questionselection = 0;
-					questionimg.src = "../../Dialoguebox/Question2.png";
-				}
-				else{
-					questionselection = 1;
-					questionimg.src = "../../Dialoguebox/Question1.png";
-				}
-			}
 			break;
 			case 83:
 			case 40:
@@ -428,19 +409,8 @@ window.onkeydown = function(event) {
 			
 			case 69:
 			move('e');
-			if (movement == "pause"){
-				usersanswer = questionselection;
-				movement = "running";
-				questionbox.innerHTML = "";
-				questionbox.style.top = "101vh";
-				document.getElementById('option1').style.top = "101vh";
-				document.getElementById('option1').innerHTML = "";
-				document.getElementById('option2').style.top = "101vh";
-				document.getElementById('option2').innerHTML = "";
-				receiveanswer();
-			}
 		}
-	
+	}
 };
 
 document.onkeyup = function(e) {
@@ -470,18 +440,49 @@ function largemessage(message="..."){
 		var largemessagebox = document.getElementById('dialoguemessage');
 		largemessagebox.innerHTML = message;},500)
 }
-function question(question="...",option1="...",option2="..."){
+function question(question="...",option1="...",option2="...",callback){
 		usersanswer = 0;
 		movement = "pause";
 		questionbox.style.top = "75vh";
 		questionselection = 1;
-		var questionmessage = document.getElementById('questionmessage');
 		questionmessage.innerHTML = question;
 		document.getElementById('option1').style.top = "93vh";
 		document.getElementById('option1').innerHTML = option1;
 		document.getElementById('option2').style.top = "93vh";
 		document.getElementById('option2').innerHTML = option2;
-
+		window.onkeydown = function(event) {
+	
+		if (lastEvent && lastEvent.keyCode == event.keyCode) {
+			return;
+		}
+		lastEvent = event;
+		heldKeys[event.keyCode] = true;
+		switch(event.keyCode){
+			case 65:
+			case 37:
+			case 68:
+			case 39:
+				if (questionselection == 1){
+						questionselection = 0;
+						questionimg.src = "../../Dialoguebox/Question2.png";
+					}
+				else{
+					questionselection = 1;
+					questionimg.src = "../../Dialoguebox/Question1.png";
+				}
+			break;
+			case 69:
+				usersanswer = questionselection;
+				movement = "running";
+				questionmessage = "";
+				questionbox.style.top = "101vh";
+				document.getElementById('option1').style.top = "101vh";
+				document.getElementById('option1').innerHTML = "";
+				document.getElementById('option2').style.top = "101vh";
+				document.getElementById('option2').innerHTML = "";
+				callback(usersanswer);
+		}
+	};
 }
 function smallmessage(message="..."){
 		setTimeout(function(){

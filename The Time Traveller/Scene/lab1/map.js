@@ -1,4 +1,4 @@
-var mapsize = '{"x":10}';
+var mapsize = '{"x":10, "y":10}';
 var o004008 = '{"type":"collideable", "goto":"null"}';
 var o005008 = '{"type":"collideable", "goto":"null"}';
 var o006008 = '{"type":"collideable", "goto":"null"}';
@@ -29,8 +29,8 @@ var o003010 = '{"type":"collideable", "goto":"null"}';
 function popup (){
 	smallmessage("Press WASD to move around");
 	setTimeout(function(){smallmessage("Arrow keys works too")},5000);
-	question("Yes?","Yes!","nope.");
 }
-function receiveanswer(){
-	smallmessage(usersanswer);
-}
+// largemessage(); 		for banner message
+// smallmessage("smallmessage");		for fading small message
+// question("Yes?","Yes!","nope.",function(answer){smallmessage(answer);});
+// for asking question. Anonymous function receives and do something with the answer
