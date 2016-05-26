@@ -1,39 +1,59 @@
+//variables used when questions are posed in the game
+//user interface
 var questionmessage = document.getElementById('questionmessage');
 var questionbox = document.getElementById('questionbox');
 var questionimg = document.getElementById('questionimg');
 var questionselection = 1;
+
+//state of the player
 var movement = "running";
+
 var messagetimeout = 0;
+
+//game physics engine for collision
 var leftcollide = ""
 var rightcollide = ""
 var topcollide = ""
 var downcollide = ""
+
 var moveinterval = function(){};
 var leftinterval = function (){};
 var rightinterval = function (){};
 var upinterval = function (){};
 var downinterval = function (){};
+
 var objecttype = "";
+
+//entities for doors
 var doorleftpic = "../../Door/Doorleft.png";
 var doorrightpic = "../../Door/Doorright.png";
 var doorleftopenpic = "../../Door/Dooropenleft.png";
 var doorrightopenpic = "../../Door/Dooropenright.png";
+
+//entities for buttons
 var buttonpic = "../../Button/Button.png";
+
 var backpic = "../../Static/Back.png";
 var frontpic = "../../Static/Front.png";
 var leftpic = "../../Static/Left.png";
 var rightpic = "../../Static/Right.png";
+
+//entities for different sides of player character
 var frontsprite = "../../SpriteFront/spritefront.gif";
 var leftsprite = "../../Spriteleft/spriteleft.gif";
 var rightsprite = "../../Spriteright/spriteright.gif";
 var backsprite = "../../Spriteback/spriteback.gif";
+
 var bgtop = 58-(selfposy*6);
 var bgleft = 52-(selfposx*6);
+
 var input = document.getElementById('input');
 var bg = document.getElementById('bg');
 var obg = document.getElementById('obg');
 var player = document.getElementById('playerimg');
+
 var totalparse = 0;
+
 function load(){
 	bg.style.width = (JSON.parse(mapsize).x+1)*6+"vw";
 	obg.style.width = (JSON.parse(mapsize).x+1)*6+"vw";
@@ -61,18 +81,22 @@ function load(){
 					objectheight = 0;
 					noobject = 1;
 					break;
+					
 					case "object":
 					objectheight = 3;
 					newobject.src = iniobject.image;
 					break;
+					
 					case "button":
 					newobject.src = buttonpic;
 					objectheight = 10;
 					break;
+					
 					case "doorleft":
 					newobject.src = doorleftpic;
 					objectheight = 20;
 					break;
+					
 					case "doorright":
 					newobject.src = doorrightpic;
 					objectheight = 20;
@@ -104,6 +128,8 @@ function load(){
 	setTimeout(function(){ document.getElementById('Chaptertext').style.color = "black"},5000);
 	setTimeout(function(){ document.getElementById('Chaptertext').style.display = "none"},6000);
 }
+
+//moving the player around using the WASD keys
 function move(dir){
 	switch(dir){
 		case "W":
@@ -113,6 +139,7 @@ function move(dir){
 		selfposy -= 1;
 		player.src= backsprite;
 		break;
+		
 		case "A":
 		case "a":
 		case "Left":
@@ -120,6 +147,7 @@ function move(dir){
 		selfposx -= 1;
 		player.src= leftsprite;
 		break;
+		
 		case "S":
 		case "s":
 		case "Down":
@@ -127,6 +155,7 @@ function move(dir){
 		selfposy += 1;
 		player.src= frontsprite;
 		break;
+		
 		case "D":
 		case "d":
 		case "Right":
@@ -134,6 +163,7 @@ function move(dir){
 		selfposx += 1;
 		player.src= rightsprite;
 		break;
+		
 		case "jump":
 		case "Jump":
 		player.style.top="43vh";
@@ -141,6 +171,7 @@ function move(dir){
 			player.style.top="48vh";
 		}, 300);
 		break;
+		
 		case "E":
 		case "e":
 		if (orientation == "Up"){
@@ -161,18 +192,22 @@ function move(dir){
 			}
 			var poscode = "o"+selfposxit+selfposyit;
 		}
+		
 		var selfposxit = selfposx;
 		var selfposyit = selfposy;
 		switch(orientation){
 			case "Up":
 			selfposyit -= 1;
 			break;
+			
 			case "Down":
 			selfposyit += 1;
 			break;
+			
 			case "Left":
 			selfposxit += 1;
 			break;
+			
 			case "Right":
 			selfposxit -= 1;
 		}
@@ -265,6 +300,8 @@ function move(dir){
 	obg.style.top=bgtop+"vw";
 	obg.style.left=bgleft+"vw";
 }
+
+//game physics engine-collider for player
 function checkpos(){
 
 	if (selfposy<4){
@@ -371,7 +408,7 @@ function checkpos(){
 	
 }
 
-
+//how the player moves when jumping
 function jump(){
 	player.style.top="25vh";
 	setTimeout(function(){ 
@@ -433,6 +470,8 @@ document.onkeyup = function(e) {
 	},500);
 }
 
+//how a large message would appear at the bottom of the screen
+//user interface
 function largemessage(message="..."){
 		messagetimeout = setTimeout(function(){
 		var largedialoguebox = document.getElementById('dialoguebox');
@@ -484,6 +523,9 @@ function question(question="...",option1="...",option2="...",callback){
 		}
 	};
 }
+
+//how a small message would appear at the bottom of the screen
+//user interface
 function smallmessage(message="..."){
 		setTimeout(function(){
 		var smalldialoguebox = document.getElementById('smalldialoguebox');
@@ -495,6 +537,7 @@ function smallmessage(message="..."){
 		},5000)
 }
 
+//how the player picture would change in relation to player movement
 function orientate(){
 	switch(orientation){
 		case "Up":
