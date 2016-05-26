@@ -1,4 +1,10 @@
+//dimensions of the map 
 var mapsize = '{"x":10, "y":10}';
+
+//collision objects
+//some are interactive - can be linked into other maps
+//others are not interactive- they are only there for aesthetic purposes
+//naming convention of objects is as follows, "o" + x-coordinate of object + y-coordinate of object
 var o004008 = '{"type":"collideable", "goto":"null"}';
 var o005008 = '{"type":"collideable", "goto":"null"}';
 var o006008 = '{"type":"collideable", "goto":"null"}';
@@ -26,6 +32,7 @@ var o002008 = '{"type":"collideable", "goto":"null"}';
 var o002009 = '{"type":"collideable", "goto":"null"}';
 var o002010 = '{"type":"collideable", "goto":"null"}';
 var o003010 = '{"type":"collideable", "goto":"null"}';
+
 function popup (){
 	smallmessage("Press WASD to move around");
 	setTimeout(function(){smallmessage("Arrow keys works too")},5000);
