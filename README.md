@@ -4,7 +4,7 @@ The game engine is used for DHS JHICC SGCC 2016 game submission.
 
 -----
 
-For any queries, please direct them to (in order of contribution)-
+For any queries, please direct them to (in no order of contribution)-
 
 Zenon Hans Taneka, 16Y3J
 
