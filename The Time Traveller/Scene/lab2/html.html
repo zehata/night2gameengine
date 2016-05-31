@@ -6,19 +6,19 @@
 	<link rel="stylesheet" href="../css.css">
 	<script id="script" src="./map.js"></script><!-- Collider change this -->
 	<script>		
-		var selfposx = 7; //Starting x position
-		var selfposy = 9; //Starting y position
-		var orientation = "Up"; //Starting orientation
+		var selfposx = 4; //Starting x position
+		var selfposy = 4; //Starting y position
+		var orientation = "Right"; //Starting orientation
 	</script>
 </head>
-<body onload="load()">
-	<div id="Chaptertext">Chapter 2: <span class="Chaptertext">The Labs</span></div> <!-- Can be left blank -->
+<body class="scenes" onload="load()">
+	<div id="Chaptertext"><span class="Chaptertext"></span></div> <!-- Can be left blank -->
 	<div id="Black"></div>
 	<div>
 		<img  id="bg" class="bg" src="./map.png" alt=""> <!-- Map image -->
 	</div>
-	<div id="obg" class="obg">
-		<img class="obgimg" src="./overlay.png"></div> <!-- Overlay image --><!-- Don't change anything else please! Change via javascript instead! -->
+	<img id="obghigher" class="obgimg" src="./overlay.png"> <!-- Overlay image --><!-- Don't change anything else please! Change via javascript instead! -->
+	<div id="obg" class="obg"></div>
 		<div class="playerbox">
 			<img id="playerimg" alt="" class="player">
 		</div>
@@ -35,6 +35,9 @@
 		<div id="smalldialoguebox">
 			<div id="smalldialoguemessage"></div>
 			<img class="smalldialoguebox" src="../../Dialoguebox/Small.png" alt="">
+		</div>
+		<div id="inventory">
+			<iframe class="inventory" src="../inventory.html"></iframe>
 		</div>
 		<script id="script" src="../../Engine/night2.js"></script>
 	</body>

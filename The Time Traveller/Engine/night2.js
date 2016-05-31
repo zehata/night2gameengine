@@ -1,42 +1,73 @@
+//variables used when questions are posed in the game
+//user interface
 var questionmessage = document.getElementById('questionmessage');
 var questionbox = document.getElementById('questionbox');
 var questionimg = document.getElementById('questionimg');
 var questionselection = 1;
+
+var userinventory = [];
+var removeditem = [];
+userinventory = JSON.parse(localStorage.getItem("inventory"));
+removeditem = JSON.parse(localStorage.getItem("removeditem"));
+
+//state of the player
 var movement = "running";
+
+var inventoryshown = 0;
+
 var messagetimeout = 0;
+
+//game physics engine for collision
 var leftcollide = ""
 var rightcollide = ""
 var topcollide = ""
 var downcollide = ""
+
 var moveinterval = function(){};
 var leftinterval = function (){};
 var rightinterval = function (){};
 var upinterval = function (){};
 var downinterval = function (){};
+
 var objecttype = "";
+
+//entities for doors
 var doorleftpic = "../../Door/Doorleft.png";
 var doorrightpic = "../../Door/Doorright.png";
 var doorleftopenpic = "../../Door/Dooropenleft.png";
 var doorrightopenpic = "../../Door/Dooropenright.png";
+var labdoorclosed = "../../Labdoor/Closed.png"
+var labdooropen = "../../Labdoor/Open.png"
+
+//entities for buttons
 var buttonpic = "../../Button/Button.png";
+
 var backpic = "../../Static/Back.png";
 var frontpic = "../../Static/Front.png";
 var leftpic = "../../Static/Left.png";
 var rightpic = "../../Static/Right.png";
+
+//entities for different sides of player character
 var frontsprite = "../../SpriteFront/spritefront.gif";
 var leftsprite = "../../Spriteleft/spriteleft.gif";
 var rightsprite = "../../Spriteright/spriteright.gif";
 var backsprite = "../../Spriteback/spriteback.gif";
-var bgtop = 58-(selfposy*6);
+
+var bgtop = 40-(selfposy*6);
 var bgleft = 52-(selfposx*6);
+
 var input = document.getElementById('input');
 var bg = document.getElementById('bg');
 var obg = document.getElementById('obg');
+var obghigher = document.getElementById('obghigher');
 var player = document.getElementById('playerimg');
+
 var totalparse = 0;
+
 function load(){
 	bg.style.width = (JSON.parse(mapsize).x+1)*6+"vw";
 	obg.style.width = (JSON.parse(mapsize).x+1)*6+"vw";
+	obghigher.style.width = (JSON.parse(mapsize).x+1)*6+"vw";
 	for (var i in window){
 		if (i[0] == "o"){
 			switch(i[1]){
@@ -51,41 +82,56 @@ function load(){
 				case "8":
 				case "9":
 				var iniobject = JSON.parse(eval(i));
-				iniobjectx = i[1]*100 + i[2]*10 + i[3];
-				iniobjecty = i[4]*100 + i[5]*10 + i[6];
-				var objectheight = 0;
+				iniobjectx = Number(i[1]*100) + Number(i[2]*10) + Number(i[3]);
+				iniobjecty = Number(i[4]*100) + Number(i[5]*10) + Number(i[6]);
+				var objectwidth = 0;
 				var noobject = 0;
 				var newobject = document.createElement("img");
 				switch(iniobject.type){
 					case "collideable":
-					objectheight = 0;
+					objectwidth = 0;
 					noobject = 1;
 					break;
+					
 					case "object":
-					objectheight = 3;
+					objectwidth = 1;
 					newobject.src = iniobject.image;
 					break;
+					
 					case "button":
 					newobject.src = buttonpic;
-					objectheight = 10;
+					objectwidth = 1;
 					break;
+					
 					case "doorleft":
 					newobject.src = doorleftpic;
-					objectheight = 20;
+					objectwidth = 1;
 					break;
+					
 					case "doorright":
 					newobject.src = doorrightpic;
-					objectheight = 20;
+					objectwidth = 1;
 					break;
+
+					case "labdoor":
+					newobject.src = labdoorclosed;
+					objectwidth = 2;
 				}
 				if (noobject == 0){
 					newobject.id = i;
 					newobject.className = "before";
 					newobject.style.position = "absolute";
-					newobject.style.left = 58-(iniobjectx*6)+"vw";
-					newobject.style.bottom = 52-(iniobjecty*6) + "vh";
-					newobject.style.height = objectheight + "vw";
-					newobject.style.width = "auto";
+					newobject.style.left = -3+(iniobjectx*6)+"vw";
+					if (iniobjecty == 1){
+						newobject.style.top = -3+(iniobjecty*6) + "vw";
+						newobject.style.zIndex = 1;
+					}
+					else{
+						newobject.style.top = 6+(iniobjecty*6) + "vw";
+						newobject.style.zIndex = 2;
+					}
+					newobject.style.height = "auto";
+					newobject.style.width = (objectwidth*6) + "vw";
 					obg.appendChild(newobject)
 				}
 				else{
@@ -99,11 +145,15 @@ function load(){
 	bg.style.left=bgleft+"vw";
 	obg.style.top=bgtop+"vw";
 	obg.style.left=bgleft+"vw";
+	obghigher.style.top=bgtop+"vw";
+	obghigher.style.left=bgleft+"vw";
 	setTimeout(function(){ document.getElementById('Black').style.zIndex=-2 }, 1000);
 	setTimeout(function(){ document.getElementById('Chaptertext').style.color = "white"},1500);
 	setTimeout(function(){ document.getElementById('Chaptertext').style.color = "black"},5000);
 	setTimeout(function(){ document.getElementById('Chaptertext').style.display = "none"},6000);
 }
+
+//moving the player around using the WASD keys
 function move(dir){
 	switch(dir){
 		case "W":
@@ -113,6 +163,7 @@ function move(dir){
 		selfposy -= 1;
 		player.src= backsprite;
 		break;
+		
 		case "A":
 		case "a":
 		case "Left":
@@ -120,6 +171,7 @@ function move(dir){
 		selfposx -= 1;
 		player.src= leftsprite;
 		break;
+		
 		case "S":
 		case "s":
 		case "Down":
@@ -127,6 +179,7 @@ function move(dir){
 		selfposy += 1;
 		player.src= frontsprite;
 		break;
+		
 		case "D":
 		case "d":
 		case "Right":
@@ -134,6 +187,7 @@ function move(dir){
 		selfposx += 1;
 		player.src= rightsprite;
 		break;
+		
 		case "jump":
 		case "Jump":
 		player.style.top="43vh";
@@ -141,40 +195,40 @@ function move(dir){
 			player.style.top="48vh";
 		}, 300);
 		break;
+		
+		case "Q":
+		case "q":
+		if (inventoryshown == 0){
+			document.getElementById('inventory').style.display="block";
+			setTimeout(function(){document.getElementById('inventory').style.opacity="1";},200)
+			inventoryshown = 1;
+		}
+		else{
+			document.getElementById('inventory').style.opacity="0";
+			setTimeout(function(){document.getElementById('inventory').style.display="none";},200)
+			inventoryshown = 0;
+		}
+		break;
+
 		case "E":
 		case "e":
-		if (orientation == "Up"){
-			var selfposxit = selfposx;
-			var selfposyit = selfposy;
-			if (selfposxit.toString().length == 1){
-				selfposxit = "00"+selfposxit;
-			}
-			else if (selfposxit.toString().length == 2){
-				selfposxit = "0"+selfposxit;
-			}
-
-			if (selfposyit.toString().length == 1){
-				selfposyit = "00"+selfposyit;
-			}
-			else if (selfposyit.toString().length == 2){
-				selfposyit = "0"+selfposyit;
-			}
-			var poscode = "o"+selfposxit+selfposyit;
-		}
 		var selfposxit = selfposx;
 		var selfposyit = selfposy;
 		switch(orientation){
 			case "Up":
 			selfposyit -= 1;
 			break;
+			
 			case "Down":
 			selfposyit += 1;
 			break;
+			
 			case "Left":
-			selfposxit += 1;
-			break;
-			case "Right":
 			selfposxit -= 1;
+			break;
+			
+			case "Right":
+			selfposxit += 1;
 		}
 		if (selfposxit.toString().length == 1){
 			selfposxit = "00"+selfposxit;
@@ -190,7 +244,6 @@ function move(dir){
 			selfposyit = "0"+selfposyit;
 		}
 		var poscode = "o"+selfposxit+selfposyit;
-		
 		function IsJsonString(str) {
 			try {
 				JSON.parse(eval(poscode));
@@ -206,8 +259,29 @@ function move(dir){
 				window.location.href = object.goto;
 			}
 			switch(object.type){
+				case "labdoor":
+				var objectstate = objectbyid.className;
+				switch(objectstate){
+					case "before":
+					objectbyid.className = "after";
+					objectbyid.src = labdooropen;
+					break;
+					case "after":
+					objectbyid.className = "before";
+					objectbyid.src = labdoorclosed;
+				}
+				break;
+				case "object":
+					userinventory.push(object.name);
+					removeditem.push(object.name);
+					window.localStorage.setItem("inventory", JSON.stringify(userinventory));
+					window.localStorage.setItem("removeditem", JSON.stringify(removeditem));
+					eval(object.function)
+					document.getElementById(poscode).remove();
+					window[poscode] = undefined;	//fixed with much thanks to Stackoverflow user: BadIdeaException
+				break;
 				case "button":
-				objectbyid.src = buttonpic;
+					objectbyid.src = buttonpic;
 				break;
 				case "doorleft":
 				var objectstate = objectbyid.className;
@@ -258,55 +332,67 @@ function move(dir){
 			}
 		}
 	}
-	var bgtop = 58-(selfposy*6);
+	var bgtop = 40-(selfposy*6);
 	var bgleft = 52-(selfposx*6);
 	bg.style.top=bgtop+"vw";
 	bg.style.left=bgleft+"vw";
 	obg.style.top=bgtop+"vw";
 	obg.style.left=bgleft+"vw";
+	obghigher.style.top=bgtop+"vw";
+	obghigher.style.left=bgleft+"vw";
 }
+
+//game physics engine-collider for player
 function checkpos(){
 
-	if (selfposy<4){
-		selfposy=4;
-		var bgtop = 58-(selfposy*6);
+	if (selfposy<2){
+		selfposy=2;
+		var bgtop = 40-(selfposy*6);
 		var bgleft = 52-(selfposx*6);
 		bg.style.top=bgtop+"vw";
 		bg.style.left=bgleft+"vw";
 		obg.style.top=bgtop+"vw";
 		obg.style.left=bgleft+"vw";
+		obghigher.style.top=bgtop+"vw";
+		obghigher.style.left=bgleft+"vw";
 		//collider
 	}
-	if (selfposy>(JSON.parse(mapsize).y)){
-		selfposy=(JSON.parse(mapsize).y);
-		var bgtop = 58-(selfposy*6);
+	if (selfposy>(JSON.parse(mapsize).y)+1){
+		selfposy=(JSON.parse(mapsize).y+1);
+		var bgtop = 40-(selfposy*6);
 		var bgleft = 52-(selfposx*6);
 		bg.style.top=bgtop+"vw";
 		bg.style.left=bgleft+"vw";
 		obg.style.top=bgtop+"vw";
 		obg.style.left=bgleft+"vw";
+		obghigher.style.top=bgtop+"vw";
+		obghigher.style.left=bgleft+"vw";
 		//collider
 	}
 
 	if (selfposx==0){
 		selfposx=1;
-		var bgtop = 58-(selfposy*6);
+		var bgtop = 40-(selfposy*6);
 		var bgleft = 52-(selfposx*6);
 		bg.style.top=bgtop+"vw";
 		bg.style.left=bgleft+"vw";
 		obg.style.top=bgtop+"vw";
 		obg.style.left=bgleft+"vw";
+		obghigher.style.top=bgtop+"vw";
+		obghigher.style.left=bgleft+"vw";
 		//collider
 	}
 
 	if (selfposx>(JSON.parse(mapsize).x)){
 		selfposx=(JSON.parse(mapsize).x);
-		var bgtop = 58-(selfposy*6);
+		var bgtop = 40-(selfposy*6);
 		var bgleft = 52-(selfposx*6);
 		bg.style.top=bgtop+"vw";
 		bg.style.left=bgleft+"vw";
 		obg.style.top=bgtop+"vw";
 		obg.style.left=bgleft+"vw";
+		obghigher.style.top=bgtop+"vw";
+		obghigher.style.left=bgleft+"vw";
 		//collider
 	}
 
@@ -338,7 +424,7 @@ function checkpos(){
 		var linkmessage = 0;
 		var objectbyid =  document.getElementById(poscode);
 		var object = JSON.parse(eval(poscode));
-		if (object.type == "collideable"){
+		if (object.type == "collideable"||object.type == "object"){
 			switch(orientation){
 				case "Up":
 				selfposy += 1;
@@ -352,14 +438,19 @@ function checkpos(){
 				case "Right":
 				selfposx -= 1;
 			}
-			var bgtop = 58-(selfposy*6);
+			var bgtop = 40-(selfposy*6);
 			var bgleft = 52-(selfposx*6);
 			bg.style.top=bgtop+"vw";
 			bg.style.left=bgleft+"vw";
 			obg.style.top=bgtop+"vw";
 			obg.style.left=bgleft+"vw";
-			linkmessage = object.goto;						
-			if (linkmessage == "null"){
+			obghigher.style.top=bgtop+"vw";
+			obghigher.style.left=bgleft+"vw";
+			linkmessage = object.goto;	
+			if (object.type == "object"){
+				largemessage("I should press 'e' to use it!");
+			}					
+			else if (linkmessage == "null"){
 				largemessage("I can't get there!");
 			}
 			else{
@@ -371,7 +462,7 @@ function checkpos(){
 	
 }
 
-
+//how the player moves when jumping (legacy code)
 function jump(){
 	player.style.top="25vh";
 	setTimeout(function(){ 
@@ -406,7 +497,9 @@ window.onkeydown = function(event) {
 			case 40:
 			downinterval = setInterval(function(){move("Down"); checkpos();}, 250);
 			break;
-			
+			case 81:
+			move('q');
+			break;
 			case 69:
 			move('e');
 		}
@@ -433,6 +526,8 @@ document.onkeyup = function(e) {
 	},500);
 }
 
+//how a large message would appear at the bottom of the screen
+//user interface
 function largemessage(message="..."){
 		messagetimeout = setTimeout(function(){
 		var largedialoguebox = document.getElementById('dialoguebox');
@@ -484,6 +579,9 @@ function question(question="...",option1="...",option2="...",callback){
 		}
 	};
 }
+
+//how a small message would appear at the bottom of the screen
+//user interface
 function smallmessage(message="..."){
 		setTimeout(function(){
 		var smalldialoguebox = document.getElementById('smalldialoguebox');
@@ -495,6 +593,7 @@ function smallmessage(message="..."){
 		},5000)
 }
 
+//how the player picture would change in relation to player movement
 function orientate(){
 	switch(orientation){
 		case "Up":
