@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>night2</title>
+	<link rel="stylesheet" href="../css.css">
+	<script id="script" src="./map.js"></script><!-- Collider change this -->
+	<script>		
+		var selfposx = 4; //Starting x position
+		var selfposy = 4; //Starting y position
+		var orientation = "Right"; //Starting orientation
+	</script>
+</head>
+<body class="scenes" onload="load()">
+	<div id="Chaptertext"><span class="Chaptertext"></span></div> <!-- Can be left blank -->
+	<div id="Black"></div>
+	<div>
+		<img  id="bg" class="bg" src="./map.png" alt=""> <!-- Map image -->
+	</div>
+	<img id="obghigher" class="obgimg" src="./overlay.png"> <!-- Overlay image --><!-- Don't change anything else please! Change via javascript instead! -->
+	<div id="obg" class="obg"></div>
+		<div class="playerbox">
+			<img id="playerimg" alt="" class="player">
+		</div>
+		<div id="dialoguebox">
+			<div id="dialoguemessage"></div>
+			<img class="dialoguebox" src="../../Dialoguebox/Large.png" alt="">
+		</div>
+		<div id="questionbox">
+			<div id="questionmessage"></div>
+			<img id="questionimg" class="questionbox" src="../../Dialoguebox/Question1.png" alt="">
+			<div id="option1"></div>
+			<div id="option2"></div>
+		</div>
+		<div id="smalldialoguebox">
+			<div id="smalldialoguemessage"></div>
+			<img class="smalldialoguebox" src="../../Dialoguebox/Small.png" alt="">
+		</div>
+		<div id="inventory">
+			<iframe class="inventory" src="../inventory.html"></iframe>
+		</div>
+		<script id="script" src="../../Engine/night2.js"></script>
+	</body>
+	</html>

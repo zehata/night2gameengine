@@ -1,0 +1,292 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+@font-face { font-family: Century Gothic; src: url('../Fonts/centurygothic.ttf'); } 
+#dialoguebox{
+	position: absolute;
+	top:101vh;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    z-index: 6;
+}
+div#dialoguemessage{
+	position: absolute;
+	top:2vh;
+	left:3vw;
+	color:#222;
+	font-size:3vw;
+	font-family: Calibri;
+	z-index: 7;
+	width: 80vw;
+}
+img.dialoguebox{
+	position: absolute;
+	width:99vw;
+	left:0.5vw;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    z-index: 6;
+}
+body.scenes{
+	overflow: hidden;
+	background-color: black;
+}
+body.inventory{
+	background-color: rgba(0,0,0,0.5);
+}
+.bg{
+	position: absolute;
+	left:45vw;
+	top:20vw;
+	height: auto;
+	width:50vw;
+	border-color: black;
+	border:solid;
+	  -webkit-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+}
+.obg{
+	position: fixed;
+	left:17vw;
+	top:26vw;
+	height: auto;
+	width:50vw;
+	border-color: black;
+	border:solid;
+	  -webkit-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+}
+.obgimg{
+		position: fixed;
+	left:17vw;
+	top:26vw;
+	height: auto;
+	width:50vw;
+	border-color: black;
+	border:solid;
+	  -webkit-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+	z-index: 2;
+}
+.player{
+	position: fixed;
+	left: 45vw;
+	top:48vh;
+	height: 20vh;
+	width:auto;
+		  -webkit-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+    z-index:2;
+}
+.playerbox{
+	position: fixed;
+	left: 45vw;
+	top:20vw;
+	height: 10vw;
+	width:10vw;
+	border-color: black;
+	border:hidden;
+}
+#Black{
+	background-color: black;
+	position: fixed;
+	left:0;
+	top:0;
+	height: 100vh;
+	width: 100vw;
+	z-index: 4;
+}
+span.Chaptertext{
+	font-size: 5vw;
+	font-weight: bold;
+	font-family: Century Gothic;
+}
+#Chaptertext{
+	position: fixed;
+	left: 3vw;
+	width: 10vw;
+	top:66vh;
+	color:black;
+	font-size: 2vw;
+	z-index: 5;
+	font-family: Century Gothic, Helvetica, Arial;
+		  -webkit-transition: all 1000ms ease-in-out;
+    -moz-transition: all 1000ms ease-in-out;
+    -o-transition: all 1000ms ease-in-out;
+    transition: all 1000ms ease-in-out;;
+}
+#smalldialoguebox{
+	position: fixed;
+	top:48vh;
+	left:58vw;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    z-index: 6;
+    opacity: 0;
+}
+div#smalldialoguemessage{
+	position: absolute;
+	top:2vh;
+	left:1vw;
+	color:#DDD;
+	font-size:2.5vw;
+	font-family: Calibri;
+	z-index: 7;
+	width: 180px;
+}
+img.smalldialoguebox{
+	position: absolute;
+	width:200px;
+	height:200px;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    z-index: 6;
+}
+#questionbox{
+	position: absolute;
+	top:101vh;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    z-index: 6;
+}
+div#questionmessage{
+	position: absolute;
+	top:2vh;
+	left:3vw;
+	color:#222;
+	font-size:3vw;
+	font-family: Calibri;
+	z-index: 7;
+	width: 80vw;
+}
+img.questionbox{
+	position: absolute;
+	width:99vw;
+	left:0.5vw;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    z-index: 6;
+}
+#option1{
+	position: fixed;
+	top:101vh;
+	left:32vw;
+	color:#222;
+	font-size:3vw;
+	font-family: Calibri;
+	z-index: 7;
+	width:10vw;
+	height:10vh;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+}
+#option2{
+	position: fixed;
+	top:101vh;
+	left:72vw;
+	color:#222;
+	font-size:3vw;
+	font-family: Calibri;
+	z-index: 7;
+	width:10vw;
+	height:10vh;
+	  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+}
+#inventory{
+	position: fixed;
+	z-index: 10;
+	left: 0;
+	top:0;
+	display: none;
+	opacity: 0;
+	-webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+}
+iframe.inventory{
+	width:100vw;
+	height:100vh;
+	opacity: 1;
+	border: hidden;
+}
+.leftbutton{
+	position: fixed;
+	left:10vw;
+	top:45vh;
+	width:10vw;
+	height:10vw;
+	border-radius: 5vw;
+	background-color: white;
+}
+.rightbutton{
+	position: fixed;
+	left:80vw;
+	top:45vh;
+	width:10vw;
+	height:10vw;
+	border-radius: 5vw;
+	background-color: white;
+}
+.objectimage{
+	position: fixed;
+	left:40vw;
+	width:20vw;
+	top:40vh;
+	height:auto;
+}
+.inventorytext{
+	position: relative;
+	top:20%;
+	font-size: 3.5vw;
+}
+.use{
+	position: fixed;
+	text-align:center;
+	left:20vw;
+	width:25vw;
+	top:80vh;
+	height:10vh;
+	background-color: white;
+	border-radius: 10px;
+	color:#222;
+	font-family: Century Gothic;
+}
+.throw{
+	position: fixed;
+	text-align:center;
+	left:55vw;
+	width:25vw;
+	top:80vh;
+	height:10vh;
+	background-color: white;
+	border-radius: 10px;
+	color:#222;
+	font-family: Century Gothic;
+}
