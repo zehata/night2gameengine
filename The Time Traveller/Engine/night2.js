@@ -7,8 +7,6 @@ var questionselection = 1;
 
 var userinventory = [];
 var removeditem = [];
-userinventory = JSON.parse(localStorage.getItem("inventory"));
-removeditem = JSON.parse(localStorage.getItem("removeditem"));
 
 //state of the player
 var movement = "running";
@@ -68,6 +66,18 @@ function load(){
 	bg.style.width = (JSON.parse(mapsize).x+1)*6+"vw";
 	obg.style.width = (JSON.parse(mapsize).x+1)*6+"vw";
 	obghigher.style.width = (JSON.parse(mapsize).x+1)*6+"vw";
+	function existsinstorage(){
+		try{
+			JSON.parse(localStorage.getItem("inventory"));
+		} catch (e) {
+			return false;
+		}
+		return true;
+	}
+	if (existsinstorage()){
+		userinventory = JSON.parse(localStorage.getItem("inventory"));
+		removeditem = JSON.parse(localStorage.getItem("removeditem"));
+	}
 	for (var i in window){
 		if (i[0] == "o"){
 			switch(i[1]){
@@ -84,8 +94,14 @@ function load(){
 				var iniobject = JSON.parse(eval(i));
 				iniobjectx = Number(i[1]*100) + Number(i[2]*10) + Number(i[3]);
 				iniobjecty = Number(i[4]*100) + Number(i[5]*10) + Number(i[6]);
-				var objectwidth = 0;
 				var noobject = 0;
+				for (var removingitem in removeditem){
+					if (iniobject.name == removeditem[removingitem]){
+						var noobject = 1;
+						window[i] = undefined;
+					}
+				}
+				var objectwidth = 0;
 				var newobject = document.createElement("img");
 				switch(iniobject.type){
 					case "collideable":
@@ -278,6 +294,7 @@ function move(dir){
 					window.localStorage.setItem("removeditem", JSON.stringify(removeditem));
 					eval(object.function)
 					document.getElementById(poscode).remove();
+					console.log(window[poscode])
 					window[poscode] = undefined;	//fixed with much thanks to Stackoverflow user: BadIdeaException
 				break;
 				case "button":
